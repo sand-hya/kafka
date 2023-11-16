@@ -31,6 +31,7 @@ jobs:
     - name: Generate SBOM
       run: |
         mkdir SBOMOUTPUT
+        pwd
         ./sbom-tool generate -b SBOMOUTPUT/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
