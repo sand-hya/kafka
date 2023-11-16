@@ -21,12 +21,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
-    - name: Generate SBOM
+    - name: Installing SBOM
       run: |
         curl -Lo sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
         chmod +x sbom-tool
+
+    - name: Generate SBOM
+      run: |
         sbom-tool generate -b . -bc . -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
