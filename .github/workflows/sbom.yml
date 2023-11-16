@@ -33,7 +33,7 @@ jobs:
         mkdir SBOMOUTPUT
         pwd
         ls
-        ./sbom-tool generate -b SBOMOUTPUT/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        ./sbom-tool generate -b SBOMOUTPUT/ -bc . -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v2
