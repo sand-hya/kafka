@@ -30,7 +30,7 @@ jobs:
 
     - name: Generate SBOM
       run: |
-        sbom-tool generate -b . -bc . -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        sbom-tool generate -b kafka/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v2
