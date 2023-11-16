@@ -26,11 +26,11 @@ jobs:
     - name: Installing SBOM
       run: |
         curl -Lo sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
-        chmod +x sbom-tool
+        chmod 777 sbom-tool-linux-x64
 
     - name: Generate SBOM
       run: |
-        sbom-tool generate -b kafka/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        sbom-tool-linux-x64 generate -b kafka/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v2
