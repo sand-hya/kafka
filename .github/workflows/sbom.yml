@@ -14,11 +14,6 @@ jobs:
       actions: read
       contents: read
 
-    #strategy:
-    #  fail-fast: false
-    #  matrix:
-    #    language: [ 'java-kotlin', 'python' ]
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -31,8 +26,6 @@ jobs:
     - name: Generate SBOM
       run: |
         mkdir SBOMOUTPUT
-        pwd
-        ls
         ./sbom-tool generate -b SBOMOUTPUT/ -bc . -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
