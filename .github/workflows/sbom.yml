@@ -14,10 +14,10 @@ jobs:
       actions: read
       contents: read
 
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'java-kotlin', 'python' ]
+    #strategy:
+    #  fail-fast: false
+    #  matrix:
+    #    language: [ 'java-kotlin', 'python' ]
 
     steps:
     - name: Checkout repository
@@ -30,7 +30,8 @@ jobs:
 
     - name: Generate SBOM
       run: |
-        sbom-tool-linux-x64 generate -b kafka/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        mkdir SBOMOUTPUT
+        sbom-tool generate -b SBOMOUTPUT/ -bc kafka/ -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v2
