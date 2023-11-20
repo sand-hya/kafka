@@ -23,11 +23,6 @@ jobs:
         curl -Lo sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
         chmod 777 sbom-tool
 
-    - name: to check
-      run: |    
-        cd SBOMOUTPUT
-        ls
-
     - name: Generate SBOM
       run: |
         mkdir SBOMOUTPUT
@@ -36,6 +31,10 @@ jobs:
     - name: to check
       run: |    
         cd SBOMOUTPUT
+        ls
+        cd _manifest
+        ls
+        cd spdx_2.2
         ls
 
     - name: Upload SBOM artifact
