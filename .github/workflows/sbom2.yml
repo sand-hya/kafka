@@ -27,6 +27,9 @@ jobs:
       run: |
         mkdir SBOMOUTPUT
         ./sbom-tool generate -b SBOMOUTPUT/ -bc . -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        
+    - name: to check
+      run: |    
         cd SBOMOUTPUT
         ls
 
