@@ -1,4 +1,4 @@
-name: "MICROSOFT-SBOM TOOL"
+name: "Microsft-SBOM Tool"
 on:
   push:
     branches: [ "3.6.0_release" ]
