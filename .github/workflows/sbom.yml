@@ -36,5 +36,5 @@ jobs:
     - name: Download SBOM artifact
       uses: actions/download-artifact@v2
       with:
-        name: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
-        path: bin/
+        name: sbom
+        path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
