@@ -19,22 +19,16 @@ jobs:
 
     - name: Installing SBOM
       run: |
-        curl -Lo sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
-        chmod 777 sbom-tool
+        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+        chmod +x $RUNNER_TEMP/sbom-tool
 
     - name: Generate SBOM
       run: |
         mkdir SBOMOUTPUT
-        ./sbom-tool generate -b SBOMOUTPUT/ -bc . -pn ${{ github.repository }} -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        $RUNNER_TEMP/sbom-tool generate -b SBOMOUTPUT/ -bc . -pn ${{ github.repository }} -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v3
-      with:
-        name: sbom
-        path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
-
-    - name: Download SBOM artifact
-      uses: actions/download-artifact@v2
       with:
         name: sbom
         path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
