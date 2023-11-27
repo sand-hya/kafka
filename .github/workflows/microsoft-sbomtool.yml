@@ -17,9 +17,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
     - name: Installing SBOM
       run: |
         curl -Lo sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
