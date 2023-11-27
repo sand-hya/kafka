@@ -1,4 +1,4 @@
-name: "Microsft-SBOM Tool"
+name: "Microsft SBOM"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -16,6 +16,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
 
     - name: Installing SBOM
       run: |
