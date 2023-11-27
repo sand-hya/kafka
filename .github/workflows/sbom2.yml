@@ -14,8 +14,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    -name: Build
-     run: |
+    - name: Build
+      run: |
         ./gradlew
 
     - name: Installing SBOM
