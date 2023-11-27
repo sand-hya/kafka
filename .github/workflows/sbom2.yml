@@ -9,14 +9,14 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    timeout-minutes: 360
-    permissions:
-      actions: read
-      contents: read
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
+    -name: Build
+     run: |
+        ./gradlew
 
     - name: Installing SBOM
       run: |
@@ -27,18 +27,9 @@ jobs:
       run: |
         mkdir SBOMOUTPUT
         ./sbom-tool generate -b SBOMOUTPUT/ -bc . -pn kafka -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
-        
-    - name: to check
-      run: |    
-        cd SBOMOUTPUT
-        ls
-        cd _manifest
-        ls
-        cd spdx_2.2
-        ls
 
     - name: Upload SBOM artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.0
       with:
         name: sbom
         path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
