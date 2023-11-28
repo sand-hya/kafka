@@ -30,6 +30,7 @@ jobs:
     - name: Generate SBOM
       run: |
         ls
+        ./spdx-sbom-generator
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v3
