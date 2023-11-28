@@ -24,8 +24,8 @@ jobs:
 
     - name: Installing SBOM
       run: |
-        curl -o sbom.zip https://github.com/opensbom-generator/spdx-sbom-generator/releases/download/v0.0.15/spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
-        tar xvzf spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
+        curl -o sbom.tar.gz https://github.com/opensbom-generator/spdx-sbom-generator/releases/download/v0.0.15/spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
+        tar xvzf sbom.tar.gz
 
     - name: Generate SBOM
       run: |
