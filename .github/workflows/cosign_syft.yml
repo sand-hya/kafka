@@ -31,8 +31,20 @@ jobs:
         pwd
         ls
 
+    - name: Upload SBOM artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: syft_sbom
+        path: sbom_output/sbom.spdx
+
     - name: Installing cosign
       uses: sigstore/cosign-installer@main
+
+    - name: Download SBOM artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: syft_sbom
+        path: sbom_output/
       
     - name: cosign   
       env:
@@ -43,9 +55,4 @@ jobs:
         ls
         cosign sign --key cosign.key sbom-syft.spdx
 
-    #- name: Upload SBOM artifact
-    #  uses: actions/upload-artifact@v3
-    #  with:
-    #    name: syft_sbom
-    #    path: sbom.spdx
-    #    if-no-files-found: error
+    
