@@ -9,10 +9,10 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      contents: write
-      repository-projects: write
+    #permissions:
+    #  actions: write
+    #  contents: write
+    #  repository-projects: write
 
     steps:
     - name: Checkout repository
@@ -35,6 +35,8 @@ jobs:
       uses: sigstore/cosign-installer@main
       
     - name: cosign   
+      env:
+        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
       run: |
         cd sbom_output
         cosign generate-key-pair
