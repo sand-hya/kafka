@@ -23,11 +23,11 @@ jobs:
 
     - name: Generate SBOM
       run: |
-        ls
+        ./syft --help
 
-    - name: Upload SBOM artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: sbom
-        path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
-        if-no-files-found: error
+    #- name: Upload SBOM artifact
+    #  uses: actions/upload-artifact@v3
+    #  with:
+    #    name: sbom
+    #    path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
+    #    if-no-files-found: error
