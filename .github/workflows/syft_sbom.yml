@@ -1,4 +1,4 @@
-name: "OPENSBOM GENERATOR"
+name: "ANCHORE SYFT"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -17,20 +17,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
     - name: Installing SBOM
       run: |
-        wget -O sbom.tar.gz https://github.com/opensbom-generator/spdx-sbom-generator/releases/download/v0.0.15/spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
-        tar -xvzf sbom.tar.gz
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b .
 
     - name: Generate SBOM
       run: |
-        pwd
-        ./spdx-sbom-generator
+        ls
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v3
