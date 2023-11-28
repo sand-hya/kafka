@@ -1,4 +1,4 @@
-name: "SBOM"
+name: "ANCHORE SYFT SBOM"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -17,18 +17,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
     - name: Installing SBOM
       run: |
-        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
-        chmod +x $RUNNER_TEMP/sbom-tool
+        curl -o sbom.zip https://github.com/opensbom-generator/spdx-sbom-generator/releases/download/v0.0.15/spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
+        tar xvzf spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
 
     - name: Generate SBOM
       run: |
-        mkdir SBOMOUTPUT
-        $RUNNER_TEMP/sbom-tool generate -b SBOMOUTPUT/ -bc . -pn ${{ github.repository }} -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
+        ls
 
     - name: Upload SBOM artifact
       uses: actions/upload-artifact@v3
       with:
         name: sbom
         path: SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
+        if-no-files-found: error
