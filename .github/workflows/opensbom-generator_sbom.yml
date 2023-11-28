@@ -1,4 +1,4 @@
-name: "ANCHORE SYFT SBOM"
+name: "OPENSBOM GENERATOR"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -24,8 +24,8 @@ jobs:
 
     - name: Installing SBOM
       run: |
-        curl -o sbom.tar.gz https://github.com/opensbom-generator/spdx-sbom-generator/releases/download/v0.0.15/spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
-        tar xvzf sbom.tar.gz
+        wget -O sbom.tar.gz https://github.com/opensbom-generator/spdx-sbom-generator/releases/download/v0.0.15/spdx-sbom-generator-v0.0.15-linux-amd64.tar.gz
+        tar -xvzf sbom.tar.gz
 
     - name: Generate SBOM
       run: |
