@@ -38,7 +38,7 @@ jobs:
         cd sbom_output
         cosign generate-key-pair
         ls
-    #    cosign sign --key cosign.key sbom.spdx
+        cosign sign --key cosign.key sbom-syft.spdx
 
     #- name: Upload SBOM artifact
     #  uses: actions/upload-artifact@v3
