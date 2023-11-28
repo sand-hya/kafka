@@ -26,6 +26,7 @@ jobs:
         mkdir sbom_output
         ./syft . -o spdx-tag-value=sbom-syft.spdx
         mv sbom-syft.spdx sbom_output
+        cd sbom_output
         pwd
         ls
 
