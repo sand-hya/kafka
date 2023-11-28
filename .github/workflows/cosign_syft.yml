@@ -33,10 +33,10 @@ jobs:
     - name: Installing cosign
       uses: sigstore/cosign-installer@main
       
-    #- name: cosign   
-    #  run: |
-    #    cosign generate-key-pair
-    #    ls
+    - name: cosign   
+      run: |
+        cosign generate-key-pair
+        ls
     #    cosign sign --key cosign.key sbom.spdx
 
     #- name: Upload SBOM artifact
