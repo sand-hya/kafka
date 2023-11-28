@@ -35,6 +35,7 @@ jobs:
       
     - name: cosign   
       run: |
+        cd sbom_output
         cosign generate-key-pair
         ls
     #    cosign sign --key cosign.key sbom.spdx
