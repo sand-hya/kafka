@@ -52,6 +52,7 @@ jobs:
       run: |
         cd sbom_output
         cosign generate-key-pair
-        ls
+        abc123
         cosign version
         cosign sign -key cosign.key sbom-syft.spdx
+        abc123
