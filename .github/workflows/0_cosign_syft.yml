@@ -46,13 +46,18 @@ jobs:
     #    name: syft_sbom
     #    path: sbom_output/
       
-    - name: cosign   
+    - name: generate cosign key   
       #env:
       #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
       run: |
         cd sbom_output
         cosign generate-key-pair
-        sand123
-        sand123
+      with:
+        input1: 'sand123'
+        input2: 'sand123'
+
+    - name: sign cosign
+      run: 
         cosign sign --key cosign.key sbom-syft.spdx
-        sand123
+      with:
+        input1: 'sand123'
