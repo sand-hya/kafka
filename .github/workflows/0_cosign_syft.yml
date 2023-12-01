@@ -60,6 +60,6 @@ jobs:
 
     - name: sign cosign
       run: 
-        cosign sign --key cosign.key sbom-syft.spdx
-      with:
-        input1: 'sand123'
+        cosign sign --key cosign.key sbom-syft.spdx -p "${COSIGN_PASSWORD}"
+      env:
+        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
