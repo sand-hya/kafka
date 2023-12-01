@@ -1,4 +1,4 @@
-name: "0 SYFT, COSIGN"
+name: "1 SYFT, COSIGN"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -51,7 +51,7 @@ jobs:
       #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
       run: |
         cd sbom_output
-        cosign generate-key-pair | "sand123"
+        echo -e "sand123\sand123" | cosign generate-key-pair 
 
     #- name: sign cosign
     #  run: 
