@@ -1,0 +1,58 @@
+name: "0 SYFT, COSIGN"
+on:
+  push:
+    branches: [ "3.6.0_release" ]
+  pull_request:
+    branches: [ "3.6.0_release" ]
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    #permissions:
+    #  actions: write
+    #  contents: write
+    #  repository-projects: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Installing SBOM
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b .
+
+    - name: Generate SBOM
+      run: |
+        mkdir sbom_output
+        ./syft . -o spdx-tag-value=sbom-syft.spdx
+        mv sbom-syft.spdx sbom_output
+        cd sbom_output
+        pwd
+        ls
+
+    #- name: Upload SBOM artifact
+    #  uses: actions/upload-artifact@v3
+    #  with:
+    #    name: syft_sbom
+    #    path: sbom_output/sbom.spdx
+
+    - name: Installing cosign
+      uses: sigstore/cosign-installer@main
+
+    #- name: Download SBOM artifact
+    #  uses: actions/download-artifact@v3
+    #  with:
+    #    name: syft_sbom
+    #    path: sbom_output/
+      
+    - name: cosign   
+      #env:
+      #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+      run: |
+        cd sbom_output
+        cosign generate-key-pair
+        sand123
+        sand123
+        cosign sign --key cosign.key sbom-syft.spdx
+        sand123
