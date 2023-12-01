@@ -45,16 +45,18 @@ jobs:
     #  with:
     #    name: syft_sbom
     #    path: sbom_output/
+
+    - name: setting password
+      run: echo "COSIGN_PASSWORD=sand123" >> $GITHUB_ENV
       
     - name: generate cosign key   
       #env:
       #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
       run: |
         cd sbom_output
-        cosign generate-key-pair
-      with:
-        input1: 'sand123'
-        input2: 'sand123'
+        cosign generate-key-pair -p "${COSIGN_PASSWORD}"
+      env:
+        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
 
     - name: sign cosign
       run: 
