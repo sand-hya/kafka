@@ -52,7 +52,7 @@ jobs:
       run: |
         cd sbom_output
         echo -e "sand123\sand123" | cosign generate-key-pair 
-        echo -e "sand123\sand123" | cosign sign --key cosign.key sbom-syft.spdx
+        echo -e "sand123" | cosign sign --key cosign.key sbom-syft.spdx
 
     #- name: sign cosign
     #  run: 
