@@ -28,7 +28,7 @@ jobs:
 
     - name: generate cosign key  
       id: generate_secret 
-      run: echo '::set-output name=MY_SECRET::$(cosign generate-key-pair)'
+      run: echo '::set-output name=MY_SECRET::${cosign generate-key-pair}'
       
     - name: Display Secret
       run: echo 'My secret is ${{ steps.generate_secret.outputs.MY_SECRET }}'   
