@@ -41,6 +41,8 @@ jobs:
       run: |
         hash=$(sha256sum $GITHUB_WORKSPACE/sbom-syft.spdx | awk '{ print $1 }')
         echo "SHA-256 Digest: $hash"
+        IMAGE_NAME=$(grep "Package-DocumentName:" $GITHUB_WORKSPACE/sbom-syft.spdx | awk '{print $2}')
+        echo "Docker image name: $IMAGE_NAME"
 
     - name: generate cosign key   
       run: |
