@@ -39,5 +39,5 @@ jobs:
 
     - name: generate cosign key   
       run: |
-        echo -e "sand123\sand123" | cosign generate-key-pair 
-        echo -e "sand123" | cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
+        cosign generate-key-pair 
+        cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
