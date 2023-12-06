@@ -47,12 +47,15 @@ jobs:
     #    path: sbom_output/
 
     - name: generate cosign key   
-      #env:
-      #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-      run: |
+    run: |
         cd sbom_output
         echo -e "sand123\sand123" | cosign generate-key-pair 
-        echo -e "sand123" | cosign sign --key cosign.key sbom-syft.spdx
+    #  #env:
+      #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+    #  run: |
+     #   cd sbom_output
+      #  echo -e "sand123\sand123" | cosign generate-key-pair 
+      #  echo -e "sand123" | cosign sign --key cosign.key sbom-syft.spdx
 
     #- name: sign cosign
     #  run: 
