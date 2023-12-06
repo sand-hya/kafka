@@ -21,30 +21,12 @@ jobs:
     - name: Generate SBOM
       run: |
         ./syft . -o spdx-tag-value=sbom-syft.spdx
-
-    #- name: Upload SBOM artifact
-    #  uses: actions/upload-artifact@v3
-    #  with:
-    #    name: syft_sbom
-    #    path: sbom_output/sbom.spdx
+        ls -al
 
     - name: Installing cosign
       uses: sigstore/cosign-installer@main
 
-    #- name: Download SBOM artifact
-    #  uses: actions/download-artifact@v3
-    #  with:
-    #    name: syft_sbom
-    #    path: sbom_output/
-
-    - name: convert .spdx to digest
-      run: |
-        hash=$(sha256sum $GITHUB_WORKSPACE/sbom-syft.spdx | awk '{ print $1 }')
-        echo "SHA-256 Digest: $hash"
-    #    IMAGE_NAME=$(grep "Package-DocumentName:" $GITHUB_WORKSPACE/sbom-syft.spdx | awk '{print $2}')
-    #    echo "Docker image name: $IMAGE_NAME"
-
     - name: generate cosign key   
       run: |
         cosign generate-key-pair 
-        cosign sign --key $GITHUB_WORKSPACE/cosign.key $hash
+        cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
