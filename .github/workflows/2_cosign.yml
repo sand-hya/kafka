@@ -20,22 +20,41 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: sandhya817
-        password: dckr_pat_U95WTk6Fm0tbnMcn3ew5i09TIcI
-
-    - name: Installing SBOM
+    - name: Build Kafka
       run: |
-        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b .
+        ./gradlew clean
+        ./gradlew assemble
 
     - name: Generate SBOM
       run: |
-        ./syft . -o spdx-tag-value=sbom-syft.spdx
+        wget https://github.com/spdx/spdx-sbom-generator/releases/latest/download/spdx-sbom-generator.jar
+        java -jar spdx-sbom-generator.jar -d <path-to-kafka-binary-directory> -o sbom.spdx.json
 
-    - name: Installing cosign
-      uses: sigstore/cosign-installer@main
+    - name: Publish SBOM as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: sbom
+        path: sbom.spdx.json
+
+    # - name: Login to Docker Hub
+    #   uses: docker/login-action@v3
+    #   with:
+    #     username: sandhya817
+    #     password: dckr_pat_U95WTk6Fm0tbnMcn3ew5i09TIcI
+
+    # - name: Installing SBOM
+    #   run: |
+    #     curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b .
+
+    # - name: Generate SBOM
+    #   run: |
+    #     ./syft . -o spdx-tag-value=sbom-syft.spdx
+    - name: Install Cosign
+      run: |
+        COSIGN_VERSION=v1.4.0
+        wget -O cosign https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign-linux-amd64
+        chmod +x cosign
+        sudo mv cosign /usr/local/bin/cosign
 
     - name: generate cosign key  
       id: generate_secret 
