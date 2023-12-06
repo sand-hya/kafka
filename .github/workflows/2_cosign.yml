@@ -12,9 +12,9 @@ jobs:
 
     steps:
     - name: Clean up workspace
-        run: |
-          cd $GITHUB_WORKSPACE
-          rm -rf *
+      run: |
+        cd $GITHUB_WORKSPACE
+        rm -rf *
     
     - name: Checkout repository
       uses: actions/checkout@v3
