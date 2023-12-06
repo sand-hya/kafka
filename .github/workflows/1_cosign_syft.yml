@@ -9,10 +9,6 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    #permissions:
-    #  actions: write
-    #  contents: write
-    #  repository-projects: write
 
     steps:
     - name: Checkout repository
