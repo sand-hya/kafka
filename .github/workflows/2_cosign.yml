@@ -31,7 +31,8 @@ jobs:
       run: |
         cosign generate-key-pair
         echo .
-    
+        pwd
+        ls -al
       
     #- name: Display Secret
     #  run: echo 'My secret is ${{ steps.generate_secret.outputs.MY_SECRET }}'   
