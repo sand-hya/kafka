@@ -25,7 +25,6 @@ jobs:
 
     - name: Generate SBOM
       run: |
-        mkdir sbom_output
         ./syft . -o spdx-tag-value=sbom-syft.spdx
 
     - name: Installing cosign
@@ -43,6 +42,3 @@ jobs:
     - name: sign cosign
       run: |
         cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
-      
-    #- name: Display Secret
-    #  run: echo 'My secret is ${{ steps.generate_secret.outputs.MY_SECRET }}'   
