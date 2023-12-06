@@ -45,4 +45,4 @@ jobs:
     - name: generate cosign key   
       run: |
         cosign generate-key-pair 
-        cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
+        cosign sign --key $GITHUB_WORKSPACE/cosign.key $hash $GITHUB_WORKSPACE/sbom-syft.spdx
