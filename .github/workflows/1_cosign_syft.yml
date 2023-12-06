@@ -27,7 +27,7 @@ jobs:
     - name: Generate SBOM
       run: |
         ./syft . -o spdx-tag-value=sbom-syft.spdx
-        ls -al
+        ls -l $GITHUB_WORKSPACE/sbom-syft.spdx
 
     - name: Installing cosign
       uses: sigstore/cosign-installer@main
