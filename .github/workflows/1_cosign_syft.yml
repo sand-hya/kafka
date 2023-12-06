@@ -24,12 +24,7 @@ jobs:
 
     - name: Generate SBOM
       run: |
-        mkdir sbom_output
         ./syft . -o spdx-tag-value=sbom-syft.spdx
-        mv sbom-syft.spdx sbom_output
-        cd sbom_output
-        pwd
-        ls
 
     #- name: Upload SBOM artifact
     #  uses: actions/upload-artifact@v3
@@ -48,17 +43,5 @@ jobs:
 
     - name: generate cosign key   
     run: |
-        cd sbom_output
         echo -e "sand123\sand123" | cosign generate-key-pair 
-    #  #env:
-      #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-    #  run: |
-     #   cd sbom_output
-      #  echo -e "sand123\sand123" | cosign generate-key-pair 
-      #  echo -e "sand123" | cosign sign --key cosign.key sbom-syft.spdx
-
-    #- name: sign cosign
-    #  run: 
-    #    cosign sign --key cosign.key sbom-syft.spdx -p "${COSIGN_PASSWORD}"
-    #  env:
-    #    COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        echo -e "sand123" | cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
