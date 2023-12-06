@@ -33,6 +33,7 @@ jobs:
         echo .
         pwd
         ls -al
+        echo $GITHUB_WORKSPACE
       
     #- name: Display Secret
     #  run: echo 'My secret is ${{ steps.generate_secret.outputs.MY_SECRET }}'   
