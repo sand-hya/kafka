@@ -34,6 +34,10 @@ jobs:
         pwd
         ls -al
         echo $GITHUB_WORKSPACE
+
+    - name: sign cosign
+      run: |
+        cosign sign --key $GITHUB_WORKSPACE/cosign.key $GITHUB_WORKSPACE/sbom-syft.spdx
       
     #- name: Display Secret
     #  run: echo 'My secret is ${{ steps.generate_secret.outputs.MY_SECRET }}'   
