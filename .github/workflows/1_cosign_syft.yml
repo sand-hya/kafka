@@ -33,7 +33,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: sbom-artifacts
-        path: $GITHUB_WORKSPACE/sbom.spdx.json
+        path: $GITHUB_WORKSPACE/sbom-syft.spdx
 
     #- name: Installing cosign
     #  uses: sigstore/cosign-installer@main
