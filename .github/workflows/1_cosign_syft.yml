@@ -37,6 +37,11 @@ jobs:
     #    name: syft_sbom
     #    path: sbom_output/
 
+    - name: convert .spdx to digest
+      run: |
+        hash=$(sha256sum $GITHUB_WORKSPACE/sbom-syft.spdx | awk '{ print $1 }')
+        echo "SHA-256 Digest: $hash"
+
     - name: generate cosign key   
       run: |
         cosign generate-key-pair 
