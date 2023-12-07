@@ -1,4 +1,4 @@
-name: "MICROSOFT SBOM"
+name: "MICROSOFT SBOM   WITH BUILD"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -24,7 +24,7 @@ jobs:
 
     - name: Build kafka
       run: |
-        ./gradlew cleanAll
+        ./gradlew clean
         ./gradlew assemble
 
     - name: Generate SBOM
