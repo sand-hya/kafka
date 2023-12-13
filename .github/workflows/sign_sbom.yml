@@ -32,18 +32,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y gnupg
 
-    - name: Import GPG key
+    - name: GPG
       run: |
-        echo "$GPG_KEY" | gpg --import 
-        gpg --batch --passphrase "$GPG_PASSPHRASE" --detach-sign --output signed-sbom.json.sig $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
-      env:
-        GPG_KEY: ${{ secrets.GPG_KEY }}
-        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        gpg --list-secret-keys
 
-    - name: Verify SBOM
-      run: | 
-        gpg --verify signed-sbom.json.asc $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
-        ls
     # gpg --detach-sign --output signed-sbom.json.asc $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
     # - name: Upload SBOM artifact
     #   uses: actions/upload-artifact@v3
