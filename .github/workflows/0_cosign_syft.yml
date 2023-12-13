@@ -1,4 +1,4 @@
-name: "0 SYFT, COSIGN"
+name: "Cosign Signing SBOM"
 on:
   push:
     branches: [ "3.6.0_release" ]
@@ -9,10 +9,9 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    #permissions:
-    #  actions: write
-    #  contents: write
-    #  repository-projects: write
+    permissions:
+      actions: read
+      contents: read
 
     steps:
     - name: Checkout repository
@@ -20,46 +19,18 @@ jobs:
 
     - name: Installing SBOM
       run: |
-        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b .
+        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+        chmod +x $RUNNER_TEMP/sbom-tool
 
     - name: Generate SBOM
       run: |
-        mkdir sbom_output
-        ./syft . -o spdx-tag-value=sbom-syft.spdx
-        mv sbom-syft.spdx sbom_output
-        cd sbom_output
-        pwd
-        ls
+        mkdir SBOMOUTPUT
+        $RUNNER_TEMP/sbom-tool generate -b SBOMOUTPUT/ -bc . -pn ${{ github.repository }} -pv 3.6.0 -ps wipro -nsb https://github.com/apache/kafka
 
-    #- name: Upload SBOM artifact
-    #  uses: actions/upload-artifact@v3
-    #  with:
-    #    name: syft_sbom
-    #    path: sbom_output/sbom.spdx
-
-    - name: Installing cosign
+    - name: Install Cosign
       uses: sigstore/cosign-installer@main
 
-    #- name: Download SBOM artifact
-    #  uses: actions/download-artifact@v3
-    #  with:
-    #    name: syft_sbom
-    #    path: sbom_output/
-
-    - name: setting password
-      run: echo "COSIGN_PASSWORD=sand123" >> $GITHUB_ENV
-      
-    - name: generate cosign key   
-      #env:
-      #  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+    - name: Cosign
       run: |
-        cd sbom_output
-        cosign generate-key-pair -p "${COSIGN_PASSWORD}"
-      env:
-        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-
-    - name: sign cosign
-      run: 
-        cosign sign --key cosign.key sbom-syft.spdx -p "${COSIGN_PASSWORD}"
-      env:
-        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        cosign sign-blob $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json --key ${{ secrets.COSIGN_PRIVATE_KEY }} --output-signature signed-sbom
+        
