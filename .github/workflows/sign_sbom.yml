@@ -36,7 +36,7 @@ jobs:
       run: |
         echo -n "$GPG_KEY" | base64 --decode | gpg --import
         gpg --list-secret-keys
-        gpg --detach-sign --output signed-sbom.json.asc $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
+        gpg --detach-sign --output signed-sbom.json.asc --key $GPG_KEY $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
 
