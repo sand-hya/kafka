@@ -37,6 +37,7 @@ jobs:
         echo -n "$GPG_KEY" | base64 --decode | gpg --import
         gpg --list-secret-keys
         gpg --detach-sign --output signed-sbom.json.asc --default-key 61F9E463A131AF50 $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
+        echo "${{ github.event.inputs.user_input }}"
 
     # gpg --detach-sign --output signed-sbom.json.asc $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json
     # - name: Upload SBOM artifact
