@@ -1,9 +1,9 @@
 name: "Cosign Signing SBOM"
 on:
   push:
-    branches: [ "3.6.0_release" ]
+    branches: [ "sandhya3.6.0" ]
   pull_request:
-    branches: [ "3.6.0_release" ]
+    branches: [ "sandhya3.6.0" ]
 
 jobs:
   analyze:
