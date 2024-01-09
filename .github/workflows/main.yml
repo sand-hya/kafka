@@ -1,0 +1,33 @@
+name: "Microsft SBOM"
+on:
+  push:
+    branches: [ "3.6.0-CriticalityScore" ]
+  pull_request:
+    branches: [ "3.6.0-CriticalityScore" ]
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Installing python
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - run: python my_script.py
+
+    - name: Installing criticality score
+      run: |
+        pip install criticality-score
+
+    - name: Generate criticality score
+      run: |
+        export GITHUB_AUTH_TOKEN = ${{ secrets.AUTH_KEY }}
+        criticality_score --repo github.com/Be-Secure/kafka --format json
