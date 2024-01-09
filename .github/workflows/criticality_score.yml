@@ -1,4 +1,4 @@
-name: ""
+name: "Criticality Score"
 on:
   push:
     branches: [ "3.6.0-CriticalityScore" ]
@@ -28,5 +28,5 @@ jobs:
 
     - name: Generate criticality score
       run: |
-        export GITHUB_AUTH_TOKEN = ${{ secrets.AUTH_KEY }}
+        export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
         criticality_score --repo github.com/Be-Secure/kafka --format json
