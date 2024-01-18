@@ -30,4 +30,4 @@ jobs:
       run: |
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
         criticality_score --help
-        ${{ github.repository }}
+        echo ${{ github.repository }}
