@@ -24,9 +24,9 @@ jobs:
 
     - name: Installing criticality score
       run: |
-        go install github.com/ossf/criticality_score/cmd/criticality_score@v2.0.2
+        go install github.com/ossf/criticality_score/cmd/criticality_score@latest
 
     - name: Generate criticality score
       run: |
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
-        criticality_score https://github.com/sand-hya/kafka
+        criticality_score github.com/kubernetes/kubernetes
