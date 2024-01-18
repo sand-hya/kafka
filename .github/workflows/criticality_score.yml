@@ -29,4 +29,4 @@ jobs:
     - name: Generate criticality score
       run: |
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
-        criticality_score github.com/kubernetes/kubernetes
+        criticality_score --help
