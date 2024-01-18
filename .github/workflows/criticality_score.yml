@@ -30,3 +30,4 @@ jobs:
       run: |
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
         criticality_score --help
+        criticality_score github.com/sand-hya/kafka
