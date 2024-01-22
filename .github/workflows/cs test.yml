@@ -17,6 +17,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - uses: actions/labeler@v4
+      with:
+        repo-token: ${{ secrets.AUTH_KEY }}
+
     - name: Installing go
       uses: actions/setup-python@v4
       with:
