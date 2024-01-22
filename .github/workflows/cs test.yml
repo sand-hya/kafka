@@ -29,5 +29,6 @@ jobs:
     - name: Generate criticality score
       run: |
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
+        echo ${{ secrets.AUTH_KEY }}
         criticality_score --help
         criticality_score --repo github.com/${{ github.repository }}
