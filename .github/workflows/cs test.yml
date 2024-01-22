@@ -15,19 +15,19 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Installing go
-      uses: actions/setup-go@v4
+      uses: actions/setup-python@v4
       with:
-        go-version: '1.19'
+        python-version: '3.10'
 
     - name: Installing criticality score
       run: |
-        go install github.com/ossf/criticality_score/cmd/criticality_score@latest
+        pip install criticality_score
 
     - name: Generate criticality score
       run: |
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
         criticality_score --help
-        echo https://github.com/${{ github.repository }}
+        criticality_score --repo github.com/${{ github.repository }}
