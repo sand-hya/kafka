@@ -17,10 +17,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - uses: actions/labeler@v4
-      with:
-        repo-token: ${{ secrets.AUTH_KEY }}
-
     - name: Installing go
       uses: actions/setup-python@v4
       with:
@@ -32,6 +28,9 @@ jobs:
 
     - name: Generate criticality score
       run: |
-        export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
+        export GITHUB_AUTH_TOKEN="$AUTH_KEY"
+        echo "AUTH_KEY"
         criticality_score --help
         criticality_score --repo github.com/${{ github.repository }}
+      env:
+        AUTH_KEY: ${{ secrets.AUTH_KEY }}
