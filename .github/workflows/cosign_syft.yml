@@ -32,5 +32,4 @@ jobs:
 
     - name: Cosign
       run: |
-        cosign sign-blob $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json --key ${{ secrets.COSIGN_PRIVATE_KEY }} --output-signature signed-sbom
-        
+        cosign sign-blob $GITHUB_WORKSPACE/SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json --output-certificate cert.pem --output-signature sbomKafkaAttestation
