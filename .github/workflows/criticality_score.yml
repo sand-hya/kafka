@@ -5,11 +5,11 @@ on:
   pull_request:
     branches: [ "3.6.0-CriticalityScore" ]
 
-workflow_dispatch:
-  inputs:
-    AUTH_TOKEN:
-      description: 'github auth token'
-      required: true
+  workflow_dispatch:
+    inputs:
+      AUTH_TOKEN:
+        description: 'github auth token'
+        required: true
 
 jobs:
   analyze:
