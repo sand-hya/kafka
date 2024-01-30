@@ -1,0 +1,46 @@
+name: "CriticalityScore"
+on:
+  push:
+    branches: [ "3.6.0-CriticalityScore" ]
+  pull_request:
+    branches: [ "3.6.0-CriticalityScore" ]
+
+workflow_dispatch:
+  inputs:
+    AUTH_TOKEN:
+      description: 'github auth token'
+      required: true
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - uses: actions/labeler@v4
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Installing python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Installing criticality score
+      run: |
+        pip install criticality_score
+
+    - name: Generate criticality score
+      run: |
+        AUTH_TOKEN=$INPUT_AUTH_TOKEN
+        echo $AUTH_TOKEN
+        #export GITHUB_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        #echo ${{ secrets.GITHUB_TOKEN }}
+        #criticality_score --help
+        #criticality_score --repo github.com/${{ github.repository }}
