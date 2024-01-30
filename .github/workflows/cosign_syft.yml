@@ -32,10 +32,8 @@ jobs:
 
     - name: Signing file with a key
           run: |
-              cosign sign-blob $FILE_TO_SIGN --output-signature $signatureFileName -y --key env://COSIGN_PRIVATE_KEY
+              cosign sign-blob SBOMOUTPUT/_manifest/spdx_2.2/manifest.spdx.json --output-signature $signatureFileName -y --key env://COSIGN_PRIVATE_KEY
               echo "cosign sign-blob $FILE_TO_SIGN --output-signature $signatureFileName -y --key env://COSIGN_PRIVATE_KEY"
           env:
-            FILE_TO_SIGN: ${{ github.event.inputs.file_to_sign }}
             COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
             COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
-            COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
