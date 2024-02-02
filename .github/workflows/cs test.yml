@@ -5,13 +5,20 @@ on:
   pull_request:
     branches: [ "3.6.0-CriticalityScore" ]
 
+  workflow_dispatch:
+    inputs:
+      github_auth_token:
+        description: 'github auth token'
+        required: true
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
-      actions: read
       contents: read
+      packages: write
+      id-token: write
 
     steps:
     - name: Checkout repository
@@ -32,7 +39,9 @@ jobs:
 
     - name: Generate criticality score
       run: |
-        export GITHUB_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        export GITHUB_AUTH_TOKEN=$INPUT_TOKEN
         echo ${{ secrets.GITHUB_TOKEN }}
         criticality_score --help
         criticality_score --repo github.com/${{ github.repository }}
+      env:
+        INPUT_TOKEN: ${{ github.event.inputs.github_auth_token }}
