@@ -37,6 +37,6 @@ jobs:
       run: |
         export GITHUB_TOKEN=$INPUT_TOKEN
         criticality_score --help
-        criticality_score -depsdev-disable -format json github.com/sand-hya/kafka
+        criticality_score -depsdev-disable -format json https://github.com/sand-hya/kafka
       env:
         INPUT_TOKEN: ${{ github.event.inputs.github_auth_token }}
