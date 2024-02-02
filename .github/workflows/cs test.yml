@@ -34,7 +34,7 @@ jobs:
 
     - name: Installing criticality score
       run: |
-        pip install criticality-score
+        pip install criticality-score==1.0.7
 
     - name: Generate criticality score
       run: |
