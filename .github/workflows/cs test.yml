@@ -30,7 +30,7 @@ jobs:
     - name: Installing python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.6'
+        python-version: '3.11'
 
     - name: Installing criticality score
       run: |
