@@ -1,15 +1,14 @@
-name: "cs test"
+name: "criticality score with pip"
 on:
   push:
-    branches: [ "3.6.0-CriticalityScore" ]
-  pull_request:
-    branches: [ "3.6.0-CriticalityScore" ]
-
+    branches: 
+      - 3.6.0-CriticalityScore
+  
   workflow_dispatch:
-    inputs:
-      github_auth_token:
-        description: 'github auth token'
-        required: true
+      inputs:
+          github_auth_token:
+            description: 'github auth token'
+            required: true
 
 jobs:
   analyze:
