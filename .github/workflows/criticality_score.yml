@@ -30,11 +30,13 @@ jobs:
     - name: Installing criticality score
       run: |
         go install github.com/ossf/criticality_score/cmd/criticality_score@latest
-
+        export GOPATH=$HOME/go
+        export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+        
     - name: Generate criticality score
       run: |
-        export GITHUB_AUTH_TOKEN=$INPUT_TOKEN
+        export GITHUB_TOKEN=$INPUT_TOKEN
         criticality_score --help
-        criticality_score github.com/sand-hya/kafka
+        criticality_score -depsdev-disable -format json github.com/sand-hya/kafka
       env:
         INPUT_TOKEN: ${{ github.event.inputs.github_auth_token }}
