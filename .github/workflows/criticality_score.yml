@@ -34,9 +34,6 @@ jobs:
     - name: Generate criticality score
       run: |
         export GITHUB_TOKEN=$INPUT_TOKEN
-        echo ""
-        echo "Criticality Score"
-        echo ""
         criticality_score -depsdev-disable -format json https://github.com/${{ github.repository }}
       env:
         INPUT_TOKEN: ${{ github.event.inputs.github_auth_token }}
