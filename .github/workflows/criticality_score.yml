@@ -1,9 +1,14 @@
-name: "Criticality Score"
+name: "criticality score with go"
 on:
   push:
-    branches: [ "3.6.0-CriticalityScore" ]
-  pull_request:
-    branches: [ "3.6.0-CriticalityScore" ]
+    branches: 
+      - 3.6.0-CriticalityScore
+  
+  workflow_dispatch:
+      inputs:
+          github_auth_token:
+            description: 'github auth token'
+            required: true
 
 jobs:
   analyze:
@@ -28,6 +33,8 @@ jobs:
 
     - name: Generate criticality score
       run: |
-        export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_KEY }}
+        export GITHUB_AUTH_TOKEN=$INPUT_TOKEN
         criticality_score --help
         criticality_score github.com/sand-hya/kafka
+      env:
+        INPUT_TOKEN: ${{ github.event.inputs.github_auth_token }}
