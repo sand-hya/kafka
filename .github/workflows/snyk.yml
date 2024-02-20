@@ -23,8 +23,8 @@ jobs:
         uses: snyk/actions/setup@master
       - name: Snyk test
         run: snyk code test
-        #env:
-        #  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         #with:
           #file: your-file-to-test.yaml
       - name: list
