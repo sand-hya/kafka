@@ -24,7 +24,7 @@ jobs:
         continue-on-error: true
         uses: snyk/actions/setup@master
       - name: Snyk test
-        run: snyk code test
+        run: snyk code test --json --json-file-output=snyk-report.json
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
